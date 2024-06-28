@@ -45,7 +45,7 @@ export const Social = memo(({ constraintsRef, isReachBottom }: SocialProps) => {
       initial={{ x: -150, opacity: 0 }}
       animate={
         isReachBottom
-          ? { x: 800, y: 800, opacity: 0, transition: { duration: 0.5 } }
+          ? { x: 300, y: 800, opacity: 0, transition: { duration: 0.5 } }
           : { x: 0, opacity: 1, transition: { duration: 0.2 } }
       }
       drag
