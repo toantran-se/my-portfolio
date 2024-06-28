@@ -46,7 +46,7 @@ export const Footer = memo(() => {
       scale: 1,
       transition: {
         delayChildren: 0,
-        staggerChildren: 0.25,
+        staggerChildren: 0.3,
       },
     },
   };
