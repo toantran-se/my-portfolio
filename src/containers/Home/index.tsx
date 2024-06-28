@@ -1,10 +1,12 @@
-import ReactFullpage from '@fullpage/react-fullpage';
 import { Footer, HeroContent, Skill, Social } from '@/components';
-import { useRef } from 'react';
+import ReactFullpage from '@fullpage/react-fullpage';
+import { useRef, useState } from 'react';
 
 export const Home = () => {
+  const [isReachBottom, setIsReachBottom] = useState(false);
   const anchors = ['', '', ''];
   const constraintsRef = useRef(null);
+  const footerRef = useRef(null);
 
   return (
     <div ref={constraintsRef}>
@@ -13,6 +15,9 @@ export const Home = () => {
         autoScrolling={true}
         navigation={true}
         navigationTooltips={anchors}
+        onLeave={(origin, destination, direction) => {
+          setIsReachBottom(destination.index === 2 ? true : false);
+        }}
         render={() => {
           return (
             <ReactFullpage.Wrapper>
@@ -22,14 +27,14 @@ export const Home = () => {
               <div className="section">
                 <Skill />
               </div>
-              <div className="section">
+              <div className="section" ref={footerRef}>
                 <Footer />
               </div>
             </ReactFullpage.Wrapper>
           );
         }}
       ></ReactFullpage>
-      <Social constraintsRef={constraintsRef} />
+      <Social constraintsRef={constraintsRef} isReachBottom={isReachBottom} />
     </div>
   );
 };

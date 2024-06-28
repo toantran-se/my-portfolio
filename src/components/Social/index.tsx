@@ -1,8 +1,8 @@
-import { RefObject, memo, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { memo } from 'react';
 import { DiGithubBadge } from 'react-icons/di';
 import { IoLogoLinkedin } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
-import { motion } from 'framer-motion';
 
 import {
   Tooltip,
@@ -14,9 +14,10 @@ import './Social.scss';
 
 type SocialProps = {
   constraintsRef: any;
+  isReachBottom: boolean;
 };
 
-export const Social = memo(({ constraintsRef }: SocialProps) => {
+export const Social = memo(({ constraintsRef, isReachBottom }: SocialProps) => {
   const icons = [
     {
       icon: <MdEmail className="social-icon" size={30} />,
@@ -42,7 +43,11 @@ export const Social = memo(({ constraintsRef }: SocialProps) => {
   return (
     <motion.div
       initial={{ x: -150, opacity: 0 }}
-      animate={{ x: 0, opacity: 1, transition: { duration: 0.5 } }}
+      animate={
+        isReachBottom
+          ? { x: 800, y: 800, opacity: 0, transition: { duration: 0.5 } }
+          : { x: 0, opacity: 1, transition: { duration: 0.2 } }
+      }
       drag
       dragConstraints={constraintsRef}
       className="fixed top-10 left-5 z-10 social-container"
