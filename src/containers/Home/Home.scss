@@ -1,3 +1,18 @@
-.section{
-    min-height: 100vh;
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.section {
+  scroll-snap-align: start;
+  transition: scroll-snap-align 0.3s ease-out;
+}
+
+// Scrollbar modification
+
+::-webkit-scrollbar {
+  width: 0;
 }

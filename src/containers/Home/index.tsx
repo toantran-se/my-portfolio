@@ -1,24 +1,43 @@
 import { Footer, HeroContent, Skill, Social } from '@/components';
 import { useRef, useState } from 'react';
-import ReactPageScroller from 'react-page-scroller';
+
+import './Home.scss';
 
 export const Home = () => {
   const [isReachBottom, setIsReachBottom] = useState(false);
-  const constraintsRef = useRef(null);
-  const handlePageChange = (index: number) => {
-    setIsReachBottom(index === 2 ? true : false);
+  const constraintsRef = useRef<HTMLDivElement | null>(null);
+
+  let lastScrollTop = 0;
+
+  const handleScroll = () => {
+    const element = constraintsRef.current;
+
+    if (!element) return;
+
+    const { scrollTop, offsetHeight, scrollHeight } = element;
+
+    if (scrollTop < lastScrollTop) {
+      setIsReachBottom(false);
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+    if (scrollTop + offsetHeight >= scrollHeight) {
+      setIsReachBottom(true);
+    }
   };
 
   return (
-    <div ref={constraintsRef}>
-      <ReactPageScroller
-        animationTimer={850}
-        onBeforePageScroll={handlePageChange}
-      >
+    <div ref={constraintsRef} className="wrapper" onScroll={handleScroll}>
+      <div className="section">
         <HeroContent />
+      </div>
+      <div className="section">
         <Skill />
+      </div>
+      <div className="section">
         <Footer />
-      </ReactPageScroller>
+      </div>
       <Social constraintsRef={constraintsRef} isReachBottom={isReachBottom} />
     </div>
   );
